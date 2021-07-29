@@ -1,8 +1,5 @@
 package com.dennis;
 
-import com.sun.source.tree.Tree;
-
-import java.time.Year;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -392,13 +389,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        ListNode l = new ListNode(1);
-        l.addItem(2,l);
-        l.addItem(3,l);
-        l.addItem(4, l);
-
-        System.out.println(l.swapPairs(l));
-        l.printNodes(l);
+        int[][] intervals = {{1,4},{0,4}};
+        ArraysProblems a = new ArraysProblems();
+        System.out.println(java.util.Arrays.deepToString(a.mergeImprov(intervals)));
 
         /*
         Graph newGraph = new Graph(3);
