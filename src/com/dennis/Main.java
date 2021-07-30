@@ -389,9 +389,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        int[][] intervals = {{1,4},{0,4}};
+        int[][] intervals = {{1,4,7,11,15}, {2,5,8,12,19}, {3,6,9,16,22}, {10,13,14,17,24}, {18,21,23,26,30}};
         ArraysProblems a = new ArraysProblems();
-        System.out.println(java.util.Arrays.deepToString(a.mergeImprov(intervals)));
+        System.out.println(a.searchMatrix2(intervals, 2));
 
         /*
         Graph newGraph = new Graph(3);
