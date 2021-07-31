@@ -386,12 +386,45 @@ public class Main {
         }
         return -1;
     }
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> mp = new HashMap<>();
 
+        int[] res = new int[2];
+
+        for(int i = 0; i < nums.length; i++){
+            if(mp.containsKey(target - nums[i])){
+                res[0] = i;
+                res[1] = mp.get(target - nums[i]);
+                return res;
+            }
+            mp.put(nums[i], i);
+        }
+
+        return res;
+    }
+
+    static int[][] make_zeroes(int[][] matrix) {
+        
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+
+            }
+        }
+        return matrix;
+    }
 
     public static void main(String[] args) {
-        int[][] intervals = {{1,4,7,11,15}, {2,5,8,12,19}, {3,6,9,16,22}, {10,13,14,17,24}, {18,21,23,26,30}};
+
+
+
+        int[] intervals1 = {4,5,6,0,0,0};
+        int[] intervals2 = {1,2,3};
         ArraysProblems a = new ArraysProblems();
-        System.out.println(a.searchMatrix2(intervals, 2));
+         a.merge(intervals1, 0, intervals2, 1);
+        for (int i = 0; i < intervals1.length; i++){
+            System.out.println(intervals1[i]);
+        }
+
 
         /*
         Graph newGraph = new Graph(3);

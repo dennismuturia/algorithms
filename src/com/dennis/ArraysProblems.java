@@ -85,4 +85,16 @@ public class ArraysProblems
         }
         return false;
     }
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int j = 0;
+        List<Integer>saved = new ArrayList<>();
+        for (int i = 0; i < nums2.length; i++) {
+            for (int k = j; k < nums1.length; k++) {
+                if(nums1[k] > nums2[i]){
+
+                }
+            }
+        }
+    }
+
 }
