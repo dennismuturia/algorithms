@@ -5,41 +5,6 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    static class Graph{
-        int Vertices;
-        LinkedList<Integer> adj_list[];
-
-        Graph(int val){
-            Vertices = val;
-            adj_list = new LinkedList[val];
-            for (int i = 0; i <val ; i++) {
-                adj_list[i] = new LinkedList<>();
-            }
-        }
-
-        void addEdge(int v, int w){
-            adj_list[v].add(w);
-        }
-
-        void DFS(int v){
-            boolean[] visited = new boolean[Vertices];
-            DFS_helper(v, visited);
-        }
-
-        private void DFS_helper(int v, boolean[] visited) {
-            visited[v] = true;
-            System.out.println("Visited v: "+ v);
-
-            Iterator<Integer>i = adj_list[v].listIterator();
-            while (i.hasNext()){
-                int n = i.next();
-                if(!visited[n]){
-                    DFS_helper(n, visited);
-                }
-            }
-        }
-    }
-
     public static int findJudge(int N, int[][] trust) {
         int[] count = new int[N+1];
         for (int[] t: trust) {
@@ -404,7 +369,7 @@ public class Main {
     }
 
     static int[][] make_zeroes(int[][] matrix) {
-        
+
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
 
@@ -413,44 +378,39 @@ public class Main {
         return matrix;
     }
 
-    public static void main(String[] args) {
+    //maximum deci-array
+    public static int minPartitions(String n) {
+        int max = 0;
+        for (int i = 0; i < n.length(); i++) {
+            max = Math.max(max, n.charAt(i)-'0');
+        }
+        return max;
+    }
 
 
-
-        int[] intervals1 = {4,5,6,0,0,0};
-        int[] intervals2 = {1,2,3};
-        ArraysProblems a = new ArraysProblems();
-         a.merge(intervals1, 0, intervals2, 1);
-        for (int i = 0; i < intervals1.length; i++){
-            System.out.println(intervals1[i]);
+    public static boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer>map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if(map.containsKey(nums[i]) && i - map.get(nums[i])<= k){
+                return true;
+            }else{
+                map.put(nums[i], i);
+            }
         }
 
+        return false;
+    }
 
-        /*
-        Graph newGraph = new Graph(3);
-        newGraph.addEdge(1, 0);
-        newGraph.addEdge(1, 2);
-        newGraph.addEdge(2, 2);
-        newGraph.addEdge(0, 1);
-        newGraph.addEdge(0, 1);
-        newGraph.addEdge(2, 0);
+    public static boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
 
-        newGraph.DFS(0);
-
-         */
+        return false;
+    }
 
 
-        /*
-        // define edges of the graph
-        List<Edge>edgesList = Arrays.asList(new Edge(0, 1,2), new Edge(0, 2, 4));
-        List<Edge> edges = Arrays.asList(new Edge(0, 1, 2),new Edge(0, 2, 4),
-                new Edge(1, 2, 4),new Edge(2, 0, 5), new Edge(2, 1, 4),
-                new Edge(3, 2, 3), new Edge(4, 5, 1),new Edge(5, 4, 3));
-        // call graph class Constructor to construct a graph
-        Graph graph = new Graph(edges);
-        // print the graph as an adjacency list
-        Graph.printGraph(graph);
-         */
+    public static void main(String[] args) {
+        int[] nums = {5, -1, 3, 8,6};
 
     }
+
+
 }
