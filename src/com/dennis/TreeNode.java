@@ -200,6 +200,31 @@ public class TreeNode {
             items.remove(items.size() -1);
         }
     }
+
+
+    List<List<Integer>>res = new ArrayList<>();
+    public List<List<Integer>> pathSum11(TreeNode root, int targetSum) {
+        calculate(root, targetSum, 0, new ArrayList<>());
+        return res;
+    }
+    void calculate(TreeNode root, int targetSum, int sum, List<Integer> vals){
+        if(root == null) return;
+        vals.add(root.val);
+        sum += root.val;
+        if(sum == targetSum && root.left == null && root.right == null){
+            res.add(new ArrayList<>(vals));
+            return;
+        }
+
+        if(root.left != null){
+            calculate(root.left, targetSum, sum, vals);
+            vals.remove(vals.size() -1);
+        }
+        if(root.right != null){
+            calculate(root.right, targetSum, sum, vals);
+            vals.remove(vals.size() - 1);
+        }
+    }
     //find profession
     class NewTreeNode{
         String val;
@@ -229,6 +254,27 @@ public class TreeNode {
         }
         return new TreeNode();
 
+    }
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        TreeNode res = buildTree(preorder, 0);
+        return res;
+    }
+
+    TreeNode buildTree(int[] preorder, int index){
+        if(index >= preorder.length) return null;
+
+        TreeNode res = new TreeNode(preorder[index]);
+
+        index+=1;
+        if(preorder[index] < res.val){
+            TreeNode left = buildTree(preorder, index);
+            res.left = left;
+        }else{
+            TreeNode right = buildTree(preorder, index);
+            res.right = right;
+        }
+        return res;
     }
 
 //Ineficient method

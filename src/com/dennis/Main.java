@@ -405,12 +405,313 @@ public class Main {
 
         return false;
     }
+    public static int search(int[] nums, int target) {
+        int pivot = nums.length/2;
+        int i = 0;
+        int result = -1;
+        while(i < nums.length){
+            if(i <pivot){
+                if(target == nums[i]){
+                    result = i;
+                }
+            }else{
+                if(target == nums[pivot]){
+                    result =pivot;
+                }
+                pivot++;
+            }
+            i++;
+        }
+        return result;
+    }
+    public static boolean canConstruct(String ransomNote, String magazine) {
+        char[] a = ransomNote.toCharArray();
+        char[] b = magazine.toCharArray();
+        Arrays.sort(a); Arrays.sort(b);
+        int i = 0;
+        int j = 0;
+        while(i < b.length){
+            if(j == a.length){
+                break;
+            }
+            if(a[j] != b[i] && i == b.length -1){
+                return false;
+            }
+            if(a[j] != b[i]){
+                i++;
+            }
+            if(a[j] == b[i]){
+                i++; j++;
+            }
+        }
 
+        if(j != a.length){
+            return false;
+        }
+
+        return true;
+    }
+    //palindrome partitioning1
+    static int min = Integer.MAX_VALUE;
+    public static int partition(String s) {
+        int min = Integer.MAX_VALUE;;
+        List<List<String>>res = new ArrayList<>();
+        dfs(s, 0, new ArrayList<>(), res);
+        for(List<String>i: res){
+            if(i.size() < min) min = i.size();
+        }
+
+        return min -1;
+    }
+
+    static void dfs(String s, int start, List<String> myList, List<List<String>> res){
+        if(start >= s.length()) res.add(new ArrayList<>(myList));
+        for(int end = start; end < s.length(); end++){
+            if(isPalindrome(s, start, end)) {
+                myList.add(s.substring(start, end +1));
+                dfs(s, end +1, myList, res);
+
+                myList.remove(myList.size() -1);
+            }
+        }
+    }
+
+    static boolean isPalindrome(String s, int i, int j){
+        while(i < j){
+            if(s.charAt(i++) !=  s.charAt(j--)) return false;
+        }
+        return true;
+    }
+    //palindrome partitioning 11
+
+    public static int minCut(String s) {
+        char[] c = s.toCharArray();
+        int n = c.length;
+        int[] cut = new int[n];
+        boolean[][] pal = new boolean[n][n];
+
+        for (int i = 0; i < n; i++) {
+            int min = i;
+            for (int j = 0; j <= i; j++) {
+                if (c[j] == c[i] && (j + 1 > i - 1 || pal[j + 1][i - 1])) {
+                    pal[j][i] = true;
+                    min = j == 0 ? 0 : Math.min(min, cut[j - 1] + 1);
+                }
+            }
+            cut[i] = min;
+        }
+        return cut[n - 1];
+    }
+    public static int candy(ArrayList<Integer> A) {
+        int[] candies = new int[A.size()];
+
+        for(int i=0; i < A.size(); i++){
+            if(i ==0){
+                candies[i] = 1;
+            } else{
+                if(A.get(i) > A.get(i -1)){
+                    candies[i] = candies[i -1] + 1;
+                }else{
+                    candies[i] = 1;
+                }
+            }
+        }
+
+        for(int i = A.size() -2; i >= 0; i--){
+
+            if(A.get(i) > A.get(i + 1) && candies[i] <= candies[i + 1]){
+                candies[i] = candies[i + 1] + 1;
+            }
+
+        }
+        int sum = 0;
+        for(int i: candies){
+            sum+=i;
+        }
+        return sum;
+    }
 
     public static void main(String[] args) {
-        int[] nums = {5, -1, 3, 8,6};
+       String a[] =  {"mom", "dad","daughter", "son", "grace", "dennis", "him", "her"};
+       HashTable h = new HashTable(10);
+       h.addItemsGrouping(a, h.arr);
+       h.printHashTable();
+
+       //System.out.println(h.getItem("her"));
 
     }
 
+    public static int majorityElement(final List<Integer> A) {
+        if(A.size() == 0) return 0;
+        int max = 0;
+        int o = 0;
+        int  p = (int) Math.floor(A.size()/2);
+        for(int i = 0; i < A.size(); i++){
+            int count = 1;
+            for(int j = i+1; j < A.size(); j++){
+                if(A.get(i).equals(A.get(j))){
+                    count +=1;
+                }
+            }
+            if(count > p){
+                if(max < count){
+                    max = count;
+                    o = i;
+                }
+            }
 
+        }
+        return A.get(o);
+    }
+    //
+    public static List<List<Integer>> levelOrder(Node root) {
+        if(root == null) return new ArrayList<>();
+        List<List<Integer>>res = new ArrayList<>();
+        Queue<Node>q = new LinkedList<>();
+        List<Node> children = new ArrayList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            List<Integer>vals = new ArrayList<>();
+            while (!q.isEmpty()) {
+                Node current = q.poll();
+                vals.add(current.val);
+                if(current.children != null){
+                    for (Node child: current.children) {
+                        children.add(child);
+                    }
+                    if(q.size() == 0){
+                        for (Node n:children) {
+                            q.add(n);
+                            children.remove(n);
+                        }
+                        break;
+                    }
+                }
+
+            }
+            res.add(vals);
+
+
+        }
+        return res;
+    }
+
+
+
+    static boolean x = false;
+
+    public static boolean stoneGame(int[] piles) {
+        int[] allSum = new int[2];
+        boolean res = play(piles, "Alex", 0, piles.length -1, new int[2]) || play(piles, "Lee", 0, piles.length -1, new int[2]);
+        return res;
+    }
+    static boolean play(int[] piles, String name, int i, int j, int[]allSum){
+        //get the maximum values
+        if(i == j || i >= piles.length || j<0){
+
+            x = allSum[0] > allSum[1];
+        }
+
+        if(name.equals("Alex") && i != j){
+            if(piles[i]> piles[j]){
+                allSum[0]+=piles[i];
+                play(piles, "Lee", i+=1, j, allSum);
+            }else{
+                allSum[0]+=piles[j];
+                play(piles, "Lee", i, j-=1, allSum);
+            }
+        }else if(name.equals("Lee") && i != j){
+            if(piles[i]> piles[j]){
+                allSum[1]+=piles[i];
+               play(piles, "Alex", i+=1, j, allSum);
+            }else{
+                allSum[1]+=piles[j];
+               play(piles, "Alex", i, j-=1, allSum);
+            }
+
+        }
+        return x;
+    }
+
+
+    public static String addStrings(String num1, String num2) {
+        int i = num1.length() -1;
+        int j = num2.length() -1;
+
+        int carry = 0;
+        StringBuilder b = new StringBuilder();
+        Stack<String>s = new Stack<>();
+        while(i >= 0 && j >=0){
+            int val1 = Integer.parseInt(String.valueOf(num1.charAt(i)));
+            int val2 = Integer.parseInt(String.valueOf(num2.charAt(j)));
+            int sum = 0;
+            if(carry == 1){
+                sum = val1 + val2 + 1;
+                carry = 0;
+            }else{
+                sum = val1 + val2;
+            }
+
+            if(sum > 9){
+                sum = sum%10;
+                carry = 1;
+            }
+            s.push(String.valueOf(sum));
+            i--;
+            j--;
+        }
+
+
+        while(j >= 0 || i >= 0){
+            if(j>= 0){
+                int val2 = Integer.parseInt(String.valueOf(num2.charAt(j)));
+                if(carry == 1){
+
+                    int sum = 0;
+                    if(val2 + carry > 9){
+                        sum = (val2 + carry) % 10;
+                        s.push(String.valueOf(sum));
+                        carry = 1;
+                    }else{
+                        sum = val2 + carry;
+                        s.push(String.valueOf(sum));
+                        carry = 0;
+                    }
+                }else{
+                    s.push(String.valueOf(val2));
+
+                }
+                j--;
+            }
+            if(i>= 0){
+                int val1 = Integer.parseInt(String.valueOf(num1.charAt(i)));
+                if(carry == 1){
+                    int sum = 0;
+                    if(val1 + carry > 9){
+                        sum = (val1 + carry) % 10;
+                        s.push(String.valueOf(sum));
+                        carry = 1;
+                    }
+                    else{
+                        sum = val1 + carry;
+                        s.push(String.valueOf(sum));
+                        carry = 0;
+                    }
+                }else{
+                    s.push(String.valueOf(val1));
+                    carry = 0;
+                }
+                i--;
+            }
+        }
+        if(carry == 1){
+            s.push(String.valueOf(1));
+        }
+
+        while (!s.empty()){
+            b.append(s.pop());
+        }
+
+        return b.toString();
+    }
 }

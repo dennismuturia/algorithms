@@ -1,37 +1,22 @@
 package com.dennis;
 
-import java.util.HashMap;
-import java.util.Map;
 
-public class Node {
-    int val;
-    Node next;
-    Node random;
+import java.util.List;
 
-    public Node(int val) {
-        this.val = val;
-        this.next = null;
-        this.random = null;
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {
     }
 
-    public Node copyRandomList(Node head) {
-        Map<Node, Node> hashTable = new HashMap<>();
+    public Node(int _val) {
+        val = _val;
+    }
 
-        //first clone the list
-        Node ref = head;
-        while (ref!= null){
-            hashTable.put(ref, new Node(ref.val));
-            ref = ref.next;
-        }
-
-        //assign next and random pointers
-        ref = head;
-        while (ref!=null){
-            hashTable.get(ref).next = hashTable.get(ref.next);
-            hashTable.get(ref).random = hashTable.get(ref.random);
-            ref = ref.next;
-        }
-
-        return hashTable.get(head);
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
     }
 }
+
