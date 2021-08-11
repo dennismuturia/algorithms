@@ -93,11 +93,7 @@ public class TreeNode {
     //Iteretive
     public List<List<Integer>> levelOrderTraversal(TreeNode root){
         List<List<Integer>> res = new ArrayList<>();
-        int len = getLength(root);
-        for(int i = 1; i <= len; i++){
-            res.add(recursiveLevel(root, i, new ArrayList<>()));
-        }
-        /*
+
         Queue<TreeNode>q = new LinkedList<>();
 
         q.add(root);
@@ -117,7 +113,7 @@ public class TreeNode {
             res.add(myList);
         }
 
-         */
+
         return res;
     }
 
@@ -303,6 +299,38 @@ public class TreeNode {
             count+=1;
         }
         return "";
+    }
+    private int findMin(TreeNode root){
+        int minValue = root.val;
+        while (root.left != null){
+            minValue = root.left.val;
+            root = root.left;
+        }
+        return minValue;
+    }
+
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root == null) return root;
+        if(root.val == key){
+            if(root.left != null && root.right != null){
+                //this has two children
+                root.val = findMin(root.right);//find min value in the right of the tree
+                root.right = deleteNode(root.right, root.val);
+            }else if(root.left != null && root.right == null){
+                root = root.left;
+            }else{
+                root = root.right;
+            }
+            return root;
+        }
+
+        if(key < root.val){
+            root.left = deleteNode(root.left, key);
+        }else{
+            root.right = deleteNode(root.right, key);
+        }
+
+        return root;
     }
 
 }

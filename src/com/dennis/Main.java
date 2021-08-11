@@ -532,12 +532,16 @@ public class Main {
     }
 
     public static void main(String[] args) {
-       String a[] =  {"mom", "dad","daughter", "son", "grace", "dennis", "him", "her"};
-       HashTable h = new HashTable(10);
-       h.addItemsGrouping(a, h.arr);
-       h.printHashTable();
+        GraphNode g = new GraphNode(5);
+        g.addEdge(0, 1);
+        g.addEdge(1, 2);
+        g.addEdge(2,4);
+        g.addEdge(3,2);
 
-       //System.out.println(h.getItem("her"));
+        g.printGraphNodes();
+        System.out.println(g.bfs(g));
+
+
 
     }
 

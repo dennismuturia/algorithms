@@ -37,6 +37,25 @@ public class ListNode {
         return newHead;
     }
 
+    //remove elements
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode r = head;
+        while(r.next.next!= null){
+            if(r.val == val){
+
+                r.val = r.next.val;
+                r.next = r.next.next;
+
+
+            }
+            r= r.next;
+        }
+        if(r.next.val ==val ){
+            r.next = null;
+        }
+        return head;
+    }
+
     //reverse a linked list
     ListNode reverse(ListNode head){
         ListNode prev = null;

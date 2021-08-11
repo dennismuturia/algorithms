@@ -7,6 +7,7 @@ public class Graph {
     public int val;
     public List<Graph>list;
 
+
     public Graph(){
         this.val = 0;
         this.list = new ArrayList<>();
@@ -32,9 +33,9 @@ public class Graph {
         Graph clone = new Graph(node.val);
         map.put(clone.val, clone);
         for (Graph neighbor: node.list){
-            clone.list.add( cloneGraph(neighbor));
+            clone.list.add(cloneGraph(neighbor));
         }
-        return  clone;
+        return clone;
     }
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
@@ -128,5 +129,4 @@ public class Graph {
         }
 
     }
-
 }
