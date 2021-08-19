@@ -141,6 +141,32 @@ public class TreeNode {
         return myList;
     }
 
+    public int findBottomLeftValue(TreeNode root) {
+        if(root == null) return 0;
+        Queue<TreeNode>q = new LinkedList<>();
+        int leftVals =0;
+        q.add(root);
+        while(!q.isEmpty()){
+            for(int i = 0; i < q.size(); i++){
+                TreeNode curr = q.poll();
+                if(curr.left != null && curr.right != null){
+                    leftVals = curr.left.val;
+                    q.add(curr.left);
+                    q.add(curr.right);
+                }
+                else if(curr.left != null){
+                    leftVals = curr.left.val;
+                    q.add(curr.left);
+                }else if(curr.right != null){
+                    q.add(curr.right);
+                }
+
+            }
+        }
+
+        return leftVals;
+    }
+
     //cousin tree
     public boolean isCousins(TreeNode root, int x, int y) {
         //do a level order traversal

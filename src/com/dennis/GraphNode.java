@@ -83,4 +83,10 @@ public class GraphNode {
     }
 
 
+    //clone a graph
+    public GraphNode clone(GraphNode root){
+
+        return null;
+    }
+
 }

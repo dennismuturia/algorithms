@@ -37,6 +37,34 @@ public class ListNode {
         return newHead;
     }
 
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        List<Integer>myList = new ArrayList<>();
+        while(head != null){
+            myList.add(head.val);
+
+            head = head.next;
+        }
+
+        myList.remove(myList.size() - n );
+        if(myList.size() != 0){
+            head = new ListNode(myList.get(0));
+            myList.remove(0);
+        }
+
+
+        ListNode p = head;
+        int i = 0;
+
+        while (p != null && !myList.isEmpty()){
+            p.next = new ListNode(myList.get(i));
+            p = p.next;
+            myList.remove(i);
+
+        }
+
+        return head;
+    }
+
     //remove elements
     public ListNode removeElements(ListNode head, int val) {
         ListNode r = head;

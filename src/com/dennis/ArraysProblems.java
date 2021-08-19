@@ -97,4 +97,42 @@ public class ArraysProblems
         }
     }
 
+
+   public ListNode reverseLinkedList(ListNode head){
+        ListNode prev = null;
+        ListNode current = head;
+        while (current != null){
+            ListNode next = current.next;
+            current.next = prev;
+             prev = current;
+             current = next;
+        }
+        return prev;
+   }
+
+    public static long carParkingRoof(List<Long> cars, int k) {
+        Collections.sort(cars);
+        long diff = 0L;
+        long min = cars.get(cars.size() -1);
+        int count = 1;
+        int i = 0;
+        int j = 1;
+        while(j < cars.size() && i <=j){
+            count+=1;
+            if(count == k){
+                diff = (cars.get(j) - cars.get(i)) + 1L;
+                if(diff < min){
+                    min = diff;
+                }
+                i++;
+                j = i;
+                count = 1;
+            }
+            j++;
+        }
+        return min;
+    }
+
+
+
 }

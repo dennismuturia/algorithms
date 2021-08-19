@@ -532,17 +532,18 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        GraphNode g = new GraphNode(5);
-        g.addEdge(0, 1);
-        g.addEdge(1, 2);
-        g.addEdge(2,4);
-        g.addEdge(3,2);
+        TreeNode t = new TreeNode(1);
+        t.left = new TreeNode(2);
+        t.right = new TreeNode(3);
+        t.left.left = new TreeNode(4);
+        t.right.left = new TreeNode(5);
+        t.right.right = new TreeNode(6);
+        t.right.left.left = new TreeNode(7);
 
-        g.printGraphNodes();
-        System.out.println(g.bfs(g));
+        String p = "hello";
+        System.out.println( p.contains("e"));
 
-
-
+        t.findBottomLeftValue(t);
     }
 
     public static int majorityElement(final List<Integer> A) {
