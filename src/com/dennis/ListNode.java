@@ -108,5 +108,80 @@ public class ListNode {
         }
     }
 
+
+    //merge k sorted listnodes
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length == 0) return null;
+        ListNode ref = lists[0];
+        ListNode res = null;
+
+        for (int i = 1; i <lists.length ; i++) {
+            if(lists[i] == null){
+                continue;
+            }
+            else{
+                while (ref != null){
+                    ref = ref.next;
+                }
+                if(lists[0] == null){
+                    lists[0] = lists[i];
+                    lists[i] = null;
+                }
+                if(ref == null){
+                    ref = lists[0];
+                }
+                if(ref.next != null){
+                    ref.next = lists[i];
+                }
+
+                res = lists[0];
+                //perform merge sort;
+                ref = mergesort(res);
+            }
+
+        }
+        return lists[0];
+    }
+
+    private ListNode mergesort(ListNode ref) {
+        if(ref == null || ref.next == null) return ref;
+        ListNode middle = getMiddle(ref);
+        ListNode nextOfMiddle = middle.next;
+        middle.next = null;
+
+        ListNode left = mergesort(ref);
+        ListNode right = mergesort(nextOfMiddle);
+
+        ListNode sorted = sortedMergedList(left, right);
+        return sorted;
+    }
+
+    private ListNode sortedMergedList(ListNode left, ListNode right) {
+        ListNode result = null;
+        if(left == null) return right;
+        if(right == null) return left;
+
+        if(left.val <= right.val){
+            result = left;
+            result.next = sortedMergedList(left.next, right);
+        }else{
+            result = right;
+            result.next = sortedMergedList(left, right.next);
+        }
+        return result;
+    }
+
+    private ListNode getMiddle(ListNode ref) {
+        if(ref == null) return ref;
+        ListNode slow = ref;
+        ListNode fast = ref;
+        while(fast.next != null && fast.next.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+
 }
 

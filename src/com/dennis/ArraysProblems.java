@@ -85,17 +85,71 @@ public class ArraysProblems
         }
         return false;
     }
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int j = 0;
-        List<Integer>saved = new ArrayList<>();
-        for (int i = 0; i < nums2.length; i++) {
-            for (int k = j; k < nums1.length; k++) {
-                if(nums1[k] > nums2[i]){
 
+    //This will not work if using O(1) but uses O(N) N = nums space
+    public void rotate(int[] nums, int k) {
+        int position = 0;
+        int[] newArr = new int[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            int temp = nums[i];
+            position = i  + k;
+            while(position > nums.length -1){
+                position = position - nums.length;
+            }
+            newArr[position] = temp;
+            if(i == nums.length -1) nums = newArr;
+        }
+    }
+
+    public String longestCommonPrefix(String[] strs) {
+    int k = 0;
+    int j = 0;
+    String res = "";
+    char p = 'a';
+    int count = 0;
+    int maxCount = 0;
+    StringBuilder b = new StringBuilder();
+    while(k < strs.length){
+        while(j < strs[k].length()){
+            if(k == 0){
+                b.append(strs[k].charAt(j));
+                p = strs[k].charAt(j);
+                k+=1;
+                break;
+            }
+            if(p!=strs[k].charAt(j) && b.length() != 0){
+                b.delete(b.toString().length() -1,b.toString().length());
+
+                if(count > maxCount){
+                    maxCount = count;
+                    res = b.toString();
+                }
+                b.delete(0, b.length());
+                count = 0;
+                break;
+            }else{
+
+                k+=1;
+                if(k == strs.length){
+                    j+=1;
+                    k = 0;
+                    count+=1;
                 }
             }
         }
+        if(k == 0){
+            if(b.length() > res.length()){
+                res = b.toString();
+            }
+        }
+        if(j >= strs[k].length()){
+            break;
+        }
+
     }
+    return res;
+}
+
 
 
    public ListNode reverseLinkedList(ListNode head){
@@ -109,6 +163,7 @@ public class ArraysProblems
         }
         return prev;
    }
+
 
     public static long carParkingRoof(List<Long> cars, int k) {
         Collections.sort(cars);
@@ -134,5 +189,24 @@ public class ArraysProblems
     }
 
 
+    //flatland space stations
+    public static int flatlandSpaceStations(int n, int[] c) {
+        int max = 0;
+        int count = 0;
+        int j = 0;
+        for(int i = 0; i < n; i++){
+            if(i == c[j]){
+                count = 0;
+                j+=1;
+            }else{
+                count+=1;
+                if(count > max){
+                    max = count;
+                }
+            }
+        }
+
+        return Math.max(count, max) > 0 ? (Math.max(count, max) + 1)/2 : 0;
+    }
 
 }

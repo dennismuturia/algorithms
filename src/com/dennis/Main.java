@@ -532,18 +532,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        TreeNode t = new TreeNode(1);
-        t.left = new TreeNode(2);
-        t.right = new TreeNode(3);
-        t.left.left = new TreeNode(4);
-        t.right.left = new TreeNode(5);
-        t.right.right = new TreeNode(6);
-        t.right.left.left = new TreeNode(7);
+        ArraysProblems arraysProblems = new ArraysProblems();
+        int[] c = {0,1,2,3,4,5};
 
-        String p = "hello";
-        System.out.println( p.contains("e"));
-
-        t.findBottomLeftValue(t);
+        System.out.println(arraysProblems.flatlandSpaceStations(6, c));
     }
 
     public static int majorityElement(final List<Integer> A) {
@@ -567,38 +559,6 @@ public class Main {
 
         }
         return A.get(o);
-    }
-    //
-    public static List<List<Integer>> levelOrder(Node root) {
-        if(root == null) return new ArrayList<>();
-        List<List<Integer>>res = new ArrayList<>();
-        Queue<Node>q = new LinkedList<>();
-        List<Node> children = new ArrayList<>();
-        q.add(root);
-        while(!q.isEmpty()){
-            List<Integer>vals = new ArrayList<>();
-            while (!q.isEmpty()) {
-                Node current = q.poll();
-                vals.add(current.val);
-                if(current.children != null){
-                    for (Node child: current.children) {
-                        children.add(child);
-                    }
-                    if(q.size() == 0){
-                        for (Node n:children) {
-                            q.add(n);
-                            children.remove(n);
-                        }
-                        break;
-                    }
-                }
-
-            }
-            res.add(vals);
-
-
-        }
-        return res;
     }
 
 
